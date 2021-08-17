@@ -4,7 +4,10 @@ const request = require("request");
 const cheerio = require("cheerio");
 // const { find } = require("domutils");
 
-
+const csv = require('csv-parser');
+const fs = require('fs');
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+const path = require("path");
 
 function processScoreCard(url) {
     request(url, cb);
@@ -75,6 +78,7 @@ function extractDetails(html) {
                 let sr = $(allColms[7]).text();
 
                 console.log(`${playerName}|| has ${runs}|| runs of ${balls}|| with ${fours} fours ,|| ${sixes} sixes with Strike rate of : ${sr}`);
+                proccessPlayers(playerName, runs, balls, fours, sixes, sr, oppName, venue, date);
             }
 
         }
@@ -84,6 +88,58 @@ function extractDetails(html) {
 
 }
 
+
+function proccessPlayers(teamName, oppName, playerName, runs, balls, fours, sixes, sr, venue, date) {
+    // first i have to create every team folder 
+    let teamPath = path.join(__dirname, "/ipl", "/teamName");
+    dirCreator(teamPath);
+
+    // make csv file for every player
+    let PlayerPath = path.join(teamPath + playerName + ".csv");
+
+    
+
+
+
+}
+// make data and url 
+function writeCsv(address, data) {
+    const csvWriter = createCsvWriter({
+        path: url,
+        header: [
+            { id: 'name', title: 'Name' },
+            { id: 'runs', title: 'Runs' },
+            { id: 'balls', title: 'Balls' },
+            { id: 'six', title: 'Sixes' },
+            { id: 'sr', title: 'Strike Rate' },
+            { id: 'venue', title: 'Venue' },
+            { id: 'date', title: 'Date' },
+        ]
+    });
+    csvWriter
+        .writeRecords(data)
+        .then(() => console.log('The CSV file was written successfully'));
+
+}
+
+
+function readCsv(add) {
+    fs.createReadStream(add)
+        .pipe(csv())
+        .on('data', (row) => {
+            console.log(row);
+        })
+        .on('end', () => {
+            console.log('CSV file successfully processed');
+        });
+}
+
+
+function dirCreator(link) {
+    if (fs.existsSync(link) == false) {
+        fs.mkdirSync(link);
+    }
+}
 
 
 module.exports = {
