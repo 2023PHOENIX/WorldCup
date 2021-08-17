@@ -120,7 +120,7 @@ function writeCsv(address, data) {
     const csv = new ObjectsToCsv(data);
 
     csv.toDisk(address,{append : true});
-
+    console.log(`successfully appended thd data to ${address}`);
 
 }
 
