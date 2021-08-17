@@ -17,7 +17,7 @@ function dirCreator(link){
   }
 }
 
-const iplPath = path.join(__dirname + "/ipl")
+const iplPath = path.join(__dirname + "/worldcup")
 dirCreator(iplPath);
 
 

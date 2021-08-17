@@ -33,7 +33,7 @@ const csvWriter = createCsvWriter({
   ]
 });
 csvWriter
-  .writeRecords(data)
+  .writeRecordsS(data)
   .then(()=> console.log('The CSV file was written successfully'));
 
 
@@ -41,20 +41,7 @@ csvWriter
 
 
 // write(url,data);
-function readCsv(url){
-  let arr = []
-fs.createReadStream(url)
-  .pipe(csv())
-  .on('data', (row) => {
-    // console.log(row);
-    arr.push(row);
-  })
-  .on('end', () => {
-    console.log('CSV file successfully processed');
-  });
 
-  return arr;
-}
 
 console.log(readCsv(url));
 
