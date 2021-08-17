@@ -98,8 +98,8 @@ function proccessPlayers(teamName, oppName, playerName, runs, balls, fours, sixe
     let PlayerPath = path.join(teamPath + "/"  + playerName + '.csv');
     // console.log(PlayerPath);
     let data = [ {
-        name : playerName,
-        oppName : oppName,
+        name : Name,
+        oppName : Against,
         runs : runs,
         balls : balls,
         four : fours,
